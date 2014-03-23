@@ -1,6 +1,12 @@
 package lista.model;
 
 public class Pessoa {
+	/**
+	 *Classe para inserir e ler os dados
+	 *
+	 *@author Cássio P Cavalheiro 
+	 */
+	
 	private String nome;
 	private String telefone;
 	

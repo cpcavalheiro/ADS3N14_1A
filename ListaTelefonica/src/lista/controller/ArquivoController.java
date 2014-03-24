@@ -37,7 +37,7 @@ public class ArquivoController {
 	 * 
 	 * @return ler
 	 */
-	private BufferedReader acessaArquivo() {
+	public BufferedReader acessaArquivo() {
 		FileReader arq = null;
 		try {
 			arq = new FileReader(file);
@@ -51,7 +51,7 @@ public class ArquivoController {
 	/**
 	 * Gera o arquivos de dados caso ele não exista.
 	 */
-	private void geraArquivo() {
+	public void geraArquivo() {
 		try {
 			file.createNewFile();
 		} catch (IOException e) {
@@ -64,23 +64,26 @@ public class ArquivoController {
 	/**
 	 * Grava informações no arquivo de dados.
 	 */
-	private void gravaArquivo(String linha) {
+	public void gravaArquivo(String linha) {
 		RandomAccessFile grava = null;
-		try{
-			 grava.writeBytes(linha);
-		}catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } finally {
-            try {
-          
-                if (grava != null)
-                    grava.close();
-                
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        }
+
+		try {
+			grava = new RandomAccessFile(file, "rw");
+			//System.out.println(linha);
+			grava.writeBytes(linha);
+		} catch (FileNotFoundException ex) {
+			ex.printStackTrace();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+
+				if (grava != null)
+					grava.close();
+
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
 	}
 }

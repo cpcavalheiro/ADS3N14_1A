@@ -1,9 +1,11 @@
 package lista.controller;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.io.Writer;
@@ -65,17 +67,21 @@ public class ArquivoController {
 	 * Grava informações no arquivo de dados.
 	 */
 	public void gravaArquivo(String linha) {
-		RandomAccessFile grava = null;
-
 		try {
-			grava = new RandomAccessFile(file, "rw");
-			//System.out.println(linha);
-			grava.writeBytes(linha);
+		FileWriter fw = new FileWriter(file, true);
+		BufferedWriter conexao = new BufferedWriter(fw);
+		//RandomAccessFile grava = null;
+		conexao.write(linha);  
+        conexao.newLine();  
+        conexao.close();		
+			//grava = new RandomAccessFile(file, "rw");
+			// System.out.println(linha);
+			//grava.writeBytes(linha + "\r\n");
 		} catch (FileNotFoundException ex) {
 			ex.printStackTrace();
 		} catch (IOException ex) {
 			ex.printStackTrace();
-		} finally {
+		} /*finally {
 			try {
 
 				if (grava != null)
@@ -84,6 +90,6 @@ public class ArquivoController {
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
-		}
+		}*/
 	}
 }

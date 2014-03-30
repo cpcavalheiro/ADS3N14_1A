@@ -31,6 +31,6 @@ public class BatalhaView {
 		
 	}
 	public void imprimeAcertoErro(int acerto, int erro, int total){
-		System.out.printf("%d Acertos. \n%d Erros\n%d Disparos totais.",acerto,erro,total);
+		System.out.printf("%d Acertos. \n%d Erros\n%d Disparos totais.\n",acerto,erro,total);
 	}
 }

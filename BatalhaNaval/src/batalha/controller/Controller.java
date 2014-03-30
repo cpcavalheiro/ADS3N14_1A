@@ -94,12 +94,15 @@ public class Controller {
 		this.submarino.setEmbarcacao(embarcacao);
 
 	}
-/**
- * Testa Se a jogada acertou alguma embarcação ou se acertou a água.
- * Se acertou retorna True, aumenta quantia de tiros, contabiliza 1 acerto.
- * Se errou retorna False, diminui em 1 a quantia de tiros e contabiliza um erro.
- * @return
- */
+
+	/**
+	 * Testa Se a jogada acertou alguma embarcação ou se acertou a água. Se
+	 * acertou retorna True, aumenta quantia de tiros, contabiliza 1 acerto. Se
+	 * errou retorna False, diminui em 1 a quantia de tiros e contabiliza um
+	 * erro.
+	 * 
+	 * @return
+	 */
 	private boolean testaJogada() {
 
 		for (int embarcacao = 0; embarcacao < submarino.getEmbarcacao().length; embarcacao++) {
@@ -114,25 +117,62 @@ public class Controller {
 			}
 		}
 		this.tabuleiro.setTiros(this.tabuleiro.getTiros() - 1);
-		this.tabuleiro.setAcertos(this.tabuleiro.getErros() + 1);
+		this.tabuleiro.setErros(this.tabuleiro.getErros() + 1);
 		return false;
 	}
-/**
- * Atualiza o Tabuleiro conforme a resposta booleana do metodo testaJogada.
- * Se acertou algum "navio" registra 1 no ponto informado.
- * Se acertou "água" registra 0. 
- * 
- */
-	public void atualizaTabuleiro() {
-		int[][] tabuleiro = new int[10][10];
-		if (this.testaJogada()) {
-			tabuleiro[this.tabuleiro.getLinha()][this.tabuleiro.getColuna()] = 1;
-			this.tabuleiro.setTabuleiro(tabuleiro);
-		} else {
-			tabuleiro[this.tabuleiro.getLinha()][this.tabuleiro.getColuna()] = 1;
-			this.tabuleiro.setTabuleiro(tabuleiro);
-		}
 
+	public int acerto() {
+		return this.tabuleiro.getAcertos();
 	}
 
+	public int erros() {
+		return this.tabuleiro.getErros();
+	}
+
+	public int tiros() {
+		return this.tabuleiro.getTiros();
+	}
+
+	/**
+	 * Atualiza o Tabuleiro conforme a resposta booleana do metodo testaJogada.
+	 * Se acertou algum "navio" registra 1 no ponto informado. Se acertou "água"
+	 * registra 0.
+	 * 
+	 */
+	public int[][] atualizaTabuleiro() {
+		int[][] tabuleiro = new int[10][10];
+		boolean retorno = this.testaJogada();
+
+		if (retorno) {
+			for (int linha = 0; linha < this.tabuleiro.getTabuleiro().length; linha++) {
+				for (int coluna = 0; coluna < this.tabuleiro.getTabuleiro()[linha].length; coluna++) {
+					if (linha == this.tabuleiro.getLinha()
+							&& coluna == this.tabuleiro.getColuna()) {
+						tabuleiro[this.tabuleiro.getLinha()][this.tabuleiro
+								.getColuna()] = 1;
+					} else {
+						tabuleiro[linha][coluna] = this.tabuleiro.getTabuleiro()[linha][coluna];
+					}
+				}
+
+			}
+			this.tabuleiro.setTabuleiro(tabuleiro);
+		} else {
+			for (int linha = 0; linha < this.tabuleiro.getTabuleiro().length; linha++) {
+				for (int coluna = 0; coluna < this.tabuleiro.getTabuleiro()[linha].length; coluna++) {
+					if (linha == this.tabuleiro.getLinha()
+							&& coluna == this.tabuleiro.getColuna()) {
+						tabuleiro[this.tabuleiro.getLinha()][this.tabuleiro
+								.getColuna()] = 0;
+					} else {
+						tabuleiro[linha][coluna] = this.tabuleiro.getTabuleiro()[linha][coluna];
+					}
+
+				}
+
+			}
+			this.tabuleiro.setTabuleiro(tabuleiro);
+		}
+		return this.tabuleiro.getTabuleiro();
+	}
 }

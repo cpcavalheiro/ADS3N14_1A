@@ -1,11 +1,40 @@
 package batalha.model;
 
 public class TabuleiroModel {
-	private int linha;
-	private String colun;
-	private int coluna;
-	int acertos, erros;
-	private int[][] array = new int[10][10];
+	private int linha, coluna, acertos, erros, tiros;
+	private String[] colun = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J" };
+	private String letra;
+	private int[][] tabuleiro;
+
+	public TabuleiroModel() {
+		linha = 0;
+		coluna = 0;
+		acertos = 0;
+		erros = 0;
+		tiros = 15;
+		letra = null;
+		tabuleiro = new int[10][10];
+	}
+
+	public int getLinha() {
+		return linha;
+	}
+
+	public void setLinha(int linha) {
+		this.linha = linha;
+	}
+
+	public String[] getColun() {
+		return colun;
+	}
+
+	public int getColuna() {
+		return coluna;
+	}
+
+	public void setColuna(int coluna) {
+		this.coluna = coluna;
+	}
 
 	public int getAcertos() {
 		return acertos;
@@ -23,35 +52,29 @@ public class TabuleiroModel {
 		this.erros = erros;
 	}
 
-	public int getLinha() {
-		return linha;
+	public int getTiros() {
+		return tiros;
 	}
 
-	public void setLinha(int linha) {
-		this.linha = linha;
+	public void setTiros(int tiros) {
+		this.tiros = tiros;
 	}
 
-	public String getColuna() {
-		return colun;
+	public String getLetra() {
+		return letra;
 	}
 
-	public void setColuna(String coluna) {
-		this.colun = coluna;
+	public void setLetras(String letra) {
+		this.letra = letra;
 	}
 
-	public void setTabuleiro(int status) {
+	public void setTabuleiro(int[][] tabuleiro) {
+		this.tabuleiro = tabuleiro;
 
-		for (linha = 0; linha < array.length; linha++) {
-
-			for (coluna = 0; coluna < array[linha].length; coluna++) {
-				this.array[linha][coluna] = status;
-			}
-
-		}
 	}
 
-	public int[][] getArray() {
-		return array;
+	public int[][] getTabuleiro() {
+		return tabuleiro;
 	}
 
 }

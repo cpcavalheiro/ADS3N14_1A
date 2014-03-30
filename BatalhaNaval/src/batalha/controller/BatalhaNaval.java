@@ -9,6 +9,7 @@ public class BatalhaNaval {
 		Controller controller = new Controller();
 
 		view.imprimeTabuleiro(controller.iniciaJogo());
+		controller.jogada();
 		controller.geraEmbarcacao();
 
 		/*

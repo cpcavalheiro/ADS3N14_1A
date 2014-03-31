@@ -16,11 +16,15 @@ public class BatalhaNaval {
 		 */
 		do {
 			controller.jogada();
-			view.imprimeTabuleiro(controller.atualizaTabuleiro());
+			view.imprimeTabuleiro(controller.atualizaTabuleiro(controller
+					.testaJogada()));
+
+			System.out.println(controller.testaFim());
+
 			view.imprimeDisparos(controller.tiros());
 			view.imprimeAcertoErro(controller.acerto(), controller.erros(),
 					controller.acerto() + controller.erros());
-		} while (controller.tiros() > 0);
+		} while (controller.tiros() > 0 && controller.testaFim() == false);
 
 		System.out.println("Fim do jogo!");
 

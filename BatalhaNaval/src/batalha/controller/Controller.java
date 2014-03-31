@@ -23,7 +23,7 @@ public class Controller {
 		this.porta_aviao = new EmbarcacaoModel(5, 2);
 		this.destroyer = new EmbarcacaoModel(8, 2);
 		this.fragata = new EmbarcacaoModel(6, 2);
-		this.submarino = new EmbarcacaoModel(5, 2);
+		this.submarino = new EmbarcacaoModel(5, 3);
 		this.torpedeiro = new EmbarcacaoModel(6, 2);
 		this.view = new BatalhaView();
 		this.input = new Scanner(System.in);
@@ -68,9 +68,11 @@ public class Controller {
 				this.tabuleiro.setColuna(teste);
 			}
 		}
-		System.out.println(tabuleiro.getLinha());
-		System.out.println(tabuleiro.getColuna());
+
 	}
+	/**
+	 * Gera os "navios" aleatoriamente para o jogo.
+	 */
 
 	public void geraEmbarcacao() {
 
@@ -80,6 +82,7 @@ public class Controller {
 		for (int cont = 0; cont < this.submarino.getEmbarcacao().length; cont++) {
 			embarcacao[cont][0] = random.nextInt(10);
 			embarcacao[cont][1] = random.nextInt(10);
+			embarcacao[cont][2] = 0;
 
 			for (int anterior = 0; anterior < cont; anterior++) {
 				if ((embarcacao[cont][0] == embarcacao[anterior][0])
@@ -90,6 +93,7 @@ public class Controller {
 					} while ((embarcacao[cont][0] == embarcacao[anterior][0])
 							&& (embarcacao[cont][1] == embarcacao[anterior][1]));
 			}
+
 		}
 		this.submarino.setEmbarcacao(embarcacao);
 
@@ -103,31 +107,78 @@ public class Controller {
 	 * 
 	 * @return
 	 */
-	private boolean testaJogada() {
-
+	public boolean testaJogada() {
+		int[][] array = this.submarino.getEmbarcacao();
 		for (int embarcacao = 0; embarcacao < submarino.getEmbarcacao().length; embarcacao++) {
 			if (this.tabuleiro.getLinha() == this.submarino.getEmbarcacao()[embarcacao][0]
 					&& this.tabuleiro.getColuna() == this.submarino
 							.getEmbarcacao()[embarcacao][1]) {
-				System.out.printf("Você acertou o tiro (%d,%d)\n",
-						this.tabuleiro.getLinha(), this.tabuleiro.getColuna());
+				System.out.printf("Você acertou o tiro.\n");
+				array[embarcacao][0] = this.submarino.getEmbarcacao()[embarcacao][0];
+				array[embarcacao][1] = this.submarino.getEmbarcacao()[embarcacao][1];
+				array[embarcacao][2] = 1;
+				System.out.printf("%d %d %d\n", array[embarcacao][0],
+						array[embarcacao][1], array[embarcacao][2]);
 				this.tabuleiro.setTiros(this.tabuleiro.getTiros() + 5);
 				this.tabuleiro.setAcertos(this.tabuleiro.getAcertos() + 1);
 				return true;
 			}
+			System.out.printf("%d %d %d\n", array[embarcacao][0],
+					array[embarcacao][1], array[embarcacao][2]);
 		}
+		this.submarino.setEmbarcacao(array);
 		this.tabuleiro.setTiros(this.tabuleiro.getTiros() - 1);
 		this.tabuleiro.setErros(this.tabuleiro.getErros() + 1);
 		return false;
 	}
 
+	/**
+	 * Testa se todos os "navios" foram "destruidos".
+	 * 
+	 * @return
+	 */
+
+	public boolean testaFim() {
+		boolean valida = false;
+		int cont = 0;
+		int[][] embarcacao = this.submarino.getEmbarcacao();
+		for (int linha = 0; linha < this.submarino.getEmbarcacao().length; linha++) {
+			if (embarcacao[linha][2] == 1) {
+				cont = cont + 1;
+			}
+		}
+		if (this.submarino.getLinha() == cont) {
+			valida = true;
+		}
+
+		return valida;
+
+	}
+
+	/**
+	 * Retorna o número de acertos que o jogador tem.
+	 * 
+	 * @return
+	 */
+
 	public int acerto() {
 		return this.tabuleiro.getAcertos();
 	}
 
+	/**
+	 * Retorna o número de erros que o jogador tem.
+	 * 
+	 * @return
+	 */
 	public int erros() {
 		return this.tabuleiro.getErros();
 	}
+
+	/**
+	 * Retorna a quantia de tiros que o jogador ainda tem disponível.
+	 * 
+	 * @return
+	 */
 
 	public int tiros() {
 		return this.tabuleiro.getTiros();
@@ -139,9 +190,8 @@ public class Controller {
 	 * registra 0.
 	 * 
 	 */
-	public int[][] atualizaTabuleiro() {
+	public int[][] atualizaTabuleiro(boolean retorno) {
 		int[][] tabuleiro = new int[10][10];
-		boolean retorno = this.testaJogada();
 
 		if (retorno) {
 			for (int linha = 0; linha < this.tabuleiro.getTabuleiro().length; linha++) {
@@ -151,7 +201,8 @@ public class Controller {
 						tabuleiro[this.tabuleiro.getLinha()][this.tabuleiro
 								.getColuna()] = 1;
 					} else {
-						tabuleiro[linha][coluna] = this.tabuleiro.getTabuleiro()[linha][coluna];
+						tabuleiro[linha][coluna] = this.tabuleiro
+								.getTabuleiro()[linha][coluna];
 					}
 				}
 
@@ -165,7 +216,8 @@ public class Controller {
 						tabuleiro[this.tabuleiro.getLinha()][this.tabuleiro
 								.getColuna()] = 0;
 					} else {
-						tabuleiro[linha][coluna] = this.tabuleiro.getTabuleiro()[linha][coluna];
+						tabuleiro[linha][coluna] = this.tabuleiro
+								.getTabuleiro()[linha][coluna];
 					}
 
 				}

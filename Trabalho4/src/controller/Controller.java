@@ -3,12 +3,14 @@ package controller;
 import java.util.Random;
 
 import model.Matriz;
+import model.TempoExecucao;
 
 public class Controller {
 	Matriz quick;
 	Matriz bubble;
 	Random random;
-	double ini, end, tempo;
+	TempoExecucao tempo;
+	double ini, end;
 	int[] lista;
 
 	public Controller() {
@@ -16,9 +18,10 @@ public class Controller {
 		this.random = new Random();
 		this.quick = new Matriz();
 		this.bubble = new Matriz();
+		this.tempo = new TempoExecucao();
 		this.ini = 0;
 		this.end = 0;
-		this.tempo = 0;
+
 	}
 
 	public void geraMatriz() {
@@ -43,7 +46,7 @@ public class Controller {
 			quick_sort(v, meio + 1, fim);
 		}
 		this.end = System.currentTimeMillis();
-		this.tempo = ((this.end - this.ini)/1000.0);
+		tempo.setTempo((this.end - this.ini) / 1000.0);
 	}
 
 	public int partition(int[] v, int ini, int fim) {
@@ -64,7 +67,7 @@ public class Controller {
 
 	public int[] bubbleSort(int[] vet) {
 		int aux = 0;
-
+		this.ini = System.currentTimeMillis();
 		for (int i = 0; i < vet.length; i++) {
 
 			for (int j = 0; j < vet.length - 1; j++) {
@@ -78,6 +81,8 @@ public class Controller {
 			}
 
 		}
+		this.end = System.currentTimeMillis();
+		tempo.setTempo((this.end - this.ini) / 1000.0);
 		this.bubble.setMatriz(vet);
 		return this.bubble.getMatriz();
 	}

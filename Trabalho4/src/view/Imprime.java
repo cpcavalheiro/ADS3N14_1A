@@ -5,7 +5,7 @@ public class Imprime {
 		System.out.println(dado);
 	}
 	
-	public void tempo(String dado){
-		System.out.println(dado);
+	public void tempo(String info){
+		System.out.println(info);
 	}
 }

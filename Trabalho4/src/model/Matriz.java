@@ -8,7 +8,7 @@ public class Matriz {
 		this.comp = 0;
 		this.swap = 0;
 
-		this.matriz = new int[10000];
+		this.matriz = new int[100];
 	}
 
 	public int getComp() {

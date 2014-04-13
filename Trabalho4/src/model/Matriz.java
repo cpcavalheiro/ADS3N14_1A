@@ -1,22 +1,32 @@
 package model;
 
 public class Matriz {
-	int[] matriz;
-	int comp, swap;
+	private int[] matriz;
+	private int comparacao, swap;
+	private TempoExecucao tempo;
 
-	public Matriz() {
-		this.comp = 0;
-		this.swap = 0;
-
-		this.matriz = new int[100];
+	public int[] getMatriz() {
+		return matriz;
 	}
 
-	public int getComp() {
-		return comp;
+	public void setMatriz(int[] matriz) {
+		this.matriz = matriz;
 	}
 
-	public void setComp(int comp) {
-		this.comp = comp;
+	public int getComparacao() {
+		return comparacao;
+	}
+
+	public void setComparacao(int comparacao) {
+		this.comparacao = comparacao;
+	}
+
+	public TempoExecucao getTempo() {
+		return tempo;
+	}
+
+	public void setTempo(TempoExecucao tempo) {
+		this.tempo = tempo;
 	}
 
 	public int getSwap() {
@@ -25,14 +35,6 @@ public class Matriz {
 
 	public void setSwap(int swap) {
 		this.swap = swap;
-	}
-
-	public void setMatriz(int[] matriz) {
-		this.matriz = matriz;
-	}
-
-	public int[] getMatriz() {
-		return matriz;
 	}
 
 }

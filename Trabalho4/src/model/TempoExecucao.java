@@ -2,8 +2,8 @@ package model;
 
 public class TempoExecucao {
 	private double tempo;
-	
-	public TempoExecucao(){
+
+	public TempoExecucao() {
 		this.tempo = 0;
 	}
 

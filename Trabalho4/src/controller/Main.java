@@ -14,10 +14,14 @@ public class Main {
 	static Matriz quick, insertion;
 
 	public static void main(String[] args) {
+		int[] matriz = new int[LISTA.length];
+		for (int a = 0; a < matriz.length; a++) {
+			matriz[a] = LISTA[a];
+		}
 
 		quickSort(LISTA);
 
-		insertionSort(LISTA);
+		insertionSort(matriz);
 
 	}
 
@@ -40,7 +44,7 @@ public class Main {
 		int[] dado = new int[100];
 
 		for (int cont = 0; cont < dado.length; cont++) {
-			dado[cont] = random.nextInt(100);
+			dado[cont] = random.nextInt(dado.length);
 		}
 		return dado;
 	}
